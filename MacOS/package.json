@@ -1,0 +1,49 @@
+{
+  "name": "pixelfriend-mac",
+  "version": "1.0.5",
+  "description": "PixelFriend water reminder for macOS",
+  "author": "PixelFriend",
+  "private": true,
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "smoke": "electron . --smoke-test",
+    "dist": "electron-builder --mac"
+  },
+  "devDependencies": {
+    "electron": "44.7.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "local.pixelfriend.mac",
+    "productName": "PixelFriend",
+    "artifactName": "${productName}-${version}-${arch}.${ext}",
+    "files": [
+      "src/**",
+      "assets/**",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.healthcare-fitness",
+      "icon": "assets/icon.png",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "extendInfo": {
+        "LSUIElement": true
+      }
+    },
+    "dmg": {
+      "title": "PixelFriend",
+      "artifactName": "${productName}-${version}-mac.${ext}"
+    },
+    "afterSign": "scripts/adhoc-sign.js"
+  }
+}
